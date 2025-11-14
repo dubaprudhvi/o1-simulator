@@ -1,0 +1,62 @@
+{
+    "APP": {
+        "NAME": "SMOTEST",
+        "VERSION": "1.0.0",
+        "DEBUG_MODE": true,
+        "ENVIRONMENT": "development"
+    },
+    "SDNR": {
+        "USERNAME": "smopv",
+        "PASSWORD": "wisig321",
+        "HOST": "10.1.3.86",
+        "PORT": "30069"
+    },
+    "NETCONF": {
+        "SINGLE_NODE_ID": "pheonix",
+        "MULTIPLE_NODE_ID": "Node-2",
+        "HOST": "10.1.3.177",
+        "PORT": 7782,
+        "USERNAME": "root",
+        "PASSWORD": 123
+    },
+    "FAULT": {
+        "NODE_ID": "pheonix",
+        "COUNTER": 1,
+        "TIMESTAMP": "2015-07-20T16:00:01Z",
+        "OBJECT_ID": "GNB",
+        "PROBLEM": "NODE",
+        "SEVERITY": "Warning"
+    },
+    "VES": {
+        "BASE_URL": "http://10.1.3.177:31001/eventListener/v7",
+        "INPUT_FILE_PATH": "/opt/wisig/smo/xmlfiles/input/B20250529.1131+00_00-1131+00_00_00256D_-_13.xml",
+        "INPUT_FILE_NAME": "B20250529.1131+00_00-1131+00_00_00256D_-_13.xml",
+        "TARGET_DIR": "/opt/wisig/smo/xmlfiles/output",
+        "SOURCE_NAME": "Node-1",
+        "FILE_DELETE_TIMER_IN_SECONDS": 120,
+        "NO_OF_FILES_SEND_IN_SECONDS": 3,
+        "FILE_SENDING_FREQUENCY_IN_SECONDS": 1
+    },
+    "VESINFLUX": {
+        "HOST": "10.1.3.177",
+        "PORT": 31004,
+        "DATABASE": "bulk_pm_data",
+        "SOURCE_NAME": "pheonix",
+        "SUSPECT_FLAG": "False",
+        "MEASOBJINSTID_ONE": "Cell-00101-0011",
+        "MEASOBJINSTID_TWO": "Cell-00101-0022",
+        "MEASUREDENTITYUSERNAME": "gNB",
+        "CURRENTTIMESTAMP": 1756826760000,
+        "INTERVAL": 3
+    },
+    "HVVESINFLUX": {
+        "HOST": "10.1.3.177",
+        "PORT": 31004,
+        "DATABASE": "streaming_pm_data",
+        "SOURCE_NAME": "pheonix",
+        "measurement": "hvvesdata",
+        "sourcename": "sourceName",
+        "kpiname": "KPINAME",
+        "kpivalue": "KPIValue"
+    }
+}
