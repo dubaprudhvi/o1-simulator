@@ -4,6 +4,9 @@ import mplane.notification_service_pb2 as notification_service_pb2
 import mplane.notification_service_pb2_grpc as notification_service_pb2_grpc
 
 
+with open(CONFIG_PATH, "r") as f:
+    config = json.load(f)
+
 class NotificationService(notification_service_pb2_grpc.NotificationService):
     
     def SubscribeNotifications(self, request, context):
@@ -19,7 +22,7 @@ class NotificationService(notification_service_pb2_grpc.NotificationService):
                         payload=self.random_fault_payload()
                     )
                     yield response
-                    time.sleep(0.1)
+                    time.sleep(config['MPLANEFAULT']['MESSAGE_FREQUENCY'])
                 except Exception as e:
                     print(f"Error sending notification: {e}")
                     break
@@ -58,7 +61,7 @@ def mplane_fault():
     notification_service_pb2_grpc.add_NotificationServiceServicer_to_server(
         NotificationService(), server
     )
-    server.add_insecure_port('[::]:50052')
+    server.add_insecure_port(f"[::]:{config['MPLANEFAULT']['PORT']}")
     server.start()
     print("Notification Server started on port 50052")
     

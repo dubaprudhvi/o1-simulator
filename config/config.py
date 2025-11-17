@@ -14,6 +14,7 @@ def config_menu():
                                 "VES CONFIGS",
                                 "VES INFLUX CONFIGS",
                                 "HV-VES INFLUX CONFIGS",
+                                "MPLANE FAULT CONFIGS",
                                 Separator(),
 #                                "BACK",
                                 "EXIT",
@@ -31,6 +32,8 @@ def config_menu():
                 readandupdateconfig.read_and_update_config("VESINFLUX")
             elif choice == "HV-VES INFLUX CONFIGS":
                 readandupdateconfig.read_and_update_config("HVVESINFLUX")
+            elif choice == "MPLANE FAULT CONFIGS":
+                readandupdateconfig.read_and_update_config("MPLANEFAULT")
             elif choice == "BACK":
                 break
             elif choice == "EXIT":

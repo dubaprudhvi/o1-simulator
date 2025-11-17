@@ -60,7 +60,8 @@
         "kpivalue": "KPIValue"
     },
     "MPLANEFAULT": {
-        "PORT": 50051,
+        "NODE": "node",
+        "PORT": 50052,
         "MESSAGE_FREQUENCY": 1
     }
 }
