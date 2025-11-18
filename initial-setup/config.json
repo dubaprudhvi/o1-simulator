@@ -60,8 +60,14 @@
         "kpivalue": "KPIValue"
     },
     "MPLANEFAULT": {
-        "NODE": "node",
+        "NODE": ["node"],
         "PORT": 50052,
-        "MESSAGE_FREQUENCY": 1
+        "MESSAGE_FREQUENCY": 1,
+        "FAULT_ID_LIST": [1, 2, 3],
+        "RU_ID_LIST": [0, 1, 2, 3],
+        "SEVERITY": ["MAJOR", "MINOR", "CRITICAL", "WARNING", "NORMAL"],
+        "IS_CLEAR": [true, false],
+        "FAULT_SOURCE": ["Module"],
+        "AFFECTED_OBJECT_NAME": ["Sync Module"]
     }
 }

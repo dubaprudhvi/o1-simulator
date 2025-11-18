@@ -2,6 +2,7 @@ from utils.imports import *
 
 import mplane.notification_service_pb2 as notification_service_pb2
 import mplane.notification_service_pb2_grpc as notification_service_pb2_grpc
+import mplane.fault.mplanefaultmapping as mplanefaultmapping
 
 
 with open(CONFIG_PATH, "r") as f:
@@ -19,7 +20,8 @@ class NotificationService(notification_service_pb2_grpc.NotificationService):
                 try:
                     response = notification_service_pb2.NotificationRequest(
                         type="fault",
-                        payload=self.random_fault_payload()
+                        # payload=self.random_fault_payload()
+                        payload=self.generate_fault_payload()
                     )
                     yield response
                     time.sleep(config['MPLANEFAULT']['MESSAGE_FREQUENCY'])
@@ -35,26 +37,51 @@ class NotificationService(notification_service_pb2_grpc.NotificationService):
         
         return send_notifications()
     
-    def SendNotification(self, request, context):
-        """Handle single notification requests"""
-        try:
-            print(f"Received notification - Type: {request.type}, Payload: {request.payload}")
-            return notification_service_pb2.NotificationResponse(
-                success=True,
-                error_message=""
-            )
-        except Exception as e:
-            return notification_service_pb2.NotificationResponse(
-                success=False,
-                error_message=str(e)
-            )
+    # def SendNotification(self, request, context):
+    #     """Handle single notification requests"""
+    #     try:
+    #         print(f"Received notification - Type: {request.type}, Payload: {request.payload}")
+    #         return notification_service_pb2.NotificationResponse(
+    #             success=True,
+    #             error_message=""
+    #         )
+    #     except Exception as e:
+    #         return notification_service_pb2.NotificationResponse(
+    #             success=False,
+    #             error_message=str(e)
+    #         )
     
-    def random_fault_payload(self):
-        payloadone = "{\"affected-objects\":[{\"name\":\"Sync Module\"}],\"event-time\":\"2025-11-13T11:39:24+00:00\",\"fault-id\":17,\"fault-severity\":\"WARNING\",\"fault-source\":\"Module\",\"fault-text\":\"Alarm is cleared\",\"hostname\":\"bluerobin\",\"is-cleared\":true,\"ru_id\":\"0\"}"
-        payloadtwo = "{\"affected-objects\":[{\"name\":\"Sync Module\"}],\"event-time\":\"2025-11-13T11:38:32+00:00\",\"fault-id\":17,\"fault-severity\":\"MAJOR\",\"fault-source\":\"Module\",\"fault-text\":\"Sync:No external sync source\",\"hostname\":\"bluerobin\",\"is-cleared\":false,\"ru_id\":\"0\"}"
+    # def random_fault_payload(self):
+    #     payloadone = "{\"affected-objects\":[{\"name\":\"Sync Module\"}],\"event-time\":\"2025-11-13T11:39:24+00:00\",\"fault-id\":17,\"fault-severity\":\"WARNING\",\"fault-source\":\"Module\",\"fault-text\":\"Alarm is cleared\",\"hostname\":\"bluerobin\",\"is-cleared\":true,\"ru_id\":\"0\"}"
+    #     payloadtwo = "{\"affected-objects\":[{\"name\":\"Sync Module\"}],\"event-time\":\"2025-11-13T11:38:32+00:00\",\"fault-id\":17,\"fault-severity\":\"MAJOR\",\"fault-source\":\"Module\",\"fault-text\":\"Sync:No external sync source\",\"hostname\":\"bluerobin\",\"is-cleared\":false,\"ru_id\":\"0\"}"
         
-        return payloadone if random.choice([True, False]) else payloadtwo
+    #     return payloadone if random.choice([True, False]) else payloadtwo
 
+    def generate_fault_payload(self):
+        
+        fault_id = random.choice(config['MPLANEFAULT']['FAULT_ID_LIST'])
+        fault_text = mplanefaultmapping.get_fault_description(fault_id)
+        fault_severity = random.choice(config['MPLANEFAULT']['SEVERITY'])
+        is_cleared = random.choice(config['MPLANEFAULT']['IS_CLEAR'])
+        fault_source = random.choice(config['MPLANEFAULT']['FAULT_SOURCE'])
+        hostname = random.choice(config['MPLANEFAULT']['NODE'])
+        ru_id = random.choice(config['MPLANEFAULT']['RU_ID_LIST'])
+        affected_object_name = random.choice(config['MPLANEFAULT']['AFFECTED_OBJECT_NAME'])
+        event_time = datetime.utcnow().isoformat() + "+00:00"
+
+        payload = {
+            "affected-objects": [{"name": affected_object_name}],
+            "event-time": event_time,
+            "fault-id": fault_id,
+            "fault-severity": fault_severity,
+            "fault-source": fault_source,
+            "fault-text": fault_text,
+            "hostname": hostname,
+            "is-cleared": is_cleared,
+            "ru_id": ru_id
+        }
+        print(payload)
+        return json.dumps(payload)
 
 def mplane_fault():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
