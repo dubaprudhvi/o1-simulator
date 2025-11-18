@@ -20,7 +20,6 @@ class NotificationService(notification_service_pb2_grpc.NotificationService):
                 try:
                     response = notification_service_pb2.NotificationRequest(
                         type="fault",
-                        # payload=self.random_fault_payload()
                         payload=self.generate_fault_payload()
                     )
                     yield response
