@@ -4,7 +4,7 @@ def ves_kpi_menu():
     try:
         while True:
             choice = inquirer.select(
-                            message="HV-VES KPI'S",
+                            message="VES KPI'S",
                             border=True,
                             choices=[
                                 "ADD VES KPI'S BASED ON TIME INTERVAL",
@@ -63,10 +63,6 @@ def validate_number(input_str, min_value, max_value, value_type=int):
 def generate_random_kpivalue(min_value=100, max_value=150):
     return random.randint(min_value, max_value)
 
-def get_current_timestamp():
-    """Get current timestamp in seconds since epoch"""
-    return int(time.time())
-
 def insert_ves_kpi_based_on_interval(interval):
     print("Loop started. Type 'exit' and press Enter to stop.")
     while True:
@@ -84,23 +80,24 @@ def insert_ves_kpi_based_on_limit(limit):
 
 def insert_ves_kpi():
     try:
-        current_timestamp = get_current_timestamp()
-            
+        current_timestamp = int(time.time() * 1000)
         line_protocol_batch = []
+        
         for KPINAME in KPINAMES:
             KPIValue = kpivalue(KPINAME)
-
+            KPIValue_str = str(KPIValue)
+            
             line_protocol = (
                 f'kpidata,measObjInstId={config["VESINFLUX"]["MEASOBJINSTID_ONE"]},measuredEntityUserName={config["VESINFLUX"]["MEASUREDENTITYUSERNAME"]},'
                 f'sourceName={config["VESINFLUX"]["SOURCE_NAME"]},KPINAME={KPINAME} '
-                f'KPIValue={KPIValue},suspectFlag={str(config["VESINFLUX"]["SUSPECT_FLAG"]).lower()},timeStamp={current_timestamp}'
+                f'KPIValue="{KPIValue_str}",suspectFlag="{str(config["VESINFLUX"]["SUSPECT_FLAG"]).lower()}",timeStamp={current_timestamp}i'
             )
             line_protocol_batch.append(line_protocol)
 
             line_protocol = (
                 f'kpidata,measObjInstId={config["VESINFLUX"]["MEASOBJINSTID_TWO"]},measuredEntityUserName={config["VESINFLUX"]["MEASUREDENTITYUSERNAME"]},'
                 f'sourceName={config["VESINFLUX"]["SOURCE_NAME"]},KPINAME={KPINAME} '
-                f'KPIValue={KPIValue},suspectFlag={str(config["VESINFLUX"]["SUSPECT_FLAG"]).lower()},timeStamp={current_timestamp}'
+                f'KPIValue="{KPIValue_str}",suspectFlag="{str(config["VESINFLUX"]["SUSPECT_FLAG"]).lower()}",timeStamp={current_timestamp}i'
             )
             line_protocol_batch.append(line_protocol)
 
