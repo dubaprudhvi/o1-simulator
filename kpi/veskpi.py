@@ -45,7 +45,7 @@ def ves_kpi_menu():
 with open(CONFIG_PATH, "r") as f:
     config = json.load(f)
 
-KPINAMES = ["RRU.PrbAvailDl", "RRU.PrbUsedUl", "RRU.PrbTotUl", "DRB.RlcDelayUl","DRB.AirIfDelayUl",  "DRB.AirIfDelayDl", "DRB.AvgDlRlcDelay", "AvgCellTPT", "DRB.MaxActiveUeDl.5", "DRB.MaxActiveUeDl.1","RESIDUAL_BLER", "BLER_PLOT", "RRU.PrbUsedDl", "RRU.PrbTotDl", "Normalised.PDSCH.MCS.0", "Normalised.PDSCH.MCS.1" , "Normalised.PDSCH.MCS.2" ,"Normalised.PDSCH.MCS.3" ,"Normalised.PDSCH.MCS.4" ,"Normalised.PDSCH.MCS.5" , "Normalised.PDSCH.MCS.6" ,"Normalised.PDSCH.MCS.7" ,"Normalised.PDSCH.MCS.8", "Normalised.PDSCH.MCS.9", "Normalised.PDSCH.MCS.10", "Normalised.PDSCH.MCS.11" , "Normalised.PDSCH.MCS.12" ,"Normalised.PDSCH.MCS.13" ,"Normalised.PDSCH.MCS.14" ,"Normalised.PDSCH.MCS.15" , "Normalised.PDSCH.MCS.16" ,"Normalised.PDSCH.MCS.17" ,"Normalised.PDSCH.MCS.18", "Normalised.PDSCH.MCS.19", "Normalised.PDSCH.MCS.20","Normalised.PDSCH.MCS.21" , "Normalised.PDSCH.MCS.22" ,"Normalised.PDSCH.MCS.23" ,"Normalised.PDSCH.MCS.24" ,"Normalised.PDSCH.MCS.25" , "Normalised.PDSCH.MCS.26" ,"Normalised.PDSCH.MCS.27" ,"Normalised.PDSCH.MCS.28", "Normalised.PDSCH.MCS.29",              "RRC.ConnEstabAtt.0", "RRC.ConnEstabAtt.1", "RRC.ConnEstabAtt.2", "RRC.ConnEstabAtt.3", "RRC.ConnEstabAtt.4", "RRC.ConnEstabAtt.5", "RRC.ConnEstabAtt.6", "RRC.ConnEstabAtt.7", "RRC.ConnEstabAtt.8", "RRC.ConnEstabAtt.9", "RRC.ConnEstabAtt.10", "RRC.ConnEstabAtt.11", "RRC.ConnEstabSucc.0", "RRC.ConnEstabSucc.1", "RRC.ConnEstabSucc.2", "RRC.ConnEstabSucc.3", "RRC.ConnEstabSucc.4", "RRC.ConnEstabSucc.5", "RRC.ConnEstabSucc.6", "RRC.ConnEstabSucc.7", "RRC.ConnEstabSucc.8", "RRC.ConnEstabSucc.9", "RRC.ConnEstabSucc.10", "RRC.ConnEstabSucc.11", "RRC.ConnMean", "RRC.ConnMax", "RRC.InactiveConnMean", "RRC.InactiveConnMax", "RRC.ReEstabAtt"]
+KPINAMES = ["RRU.PrbAvailDl", "RRU.PrbUsedUl", "RRU.PrbTotUl", "DRB.RlcDelayUl","DRB.AirIfDelayUl",  "DRB.AirIfDelayDl", "DRB.AvgDlRlcDelay", "AvgCellTPT", "DRB.MaxActiveUeDl.5", "DRB.MaxActiveUeDl.1","RESIDUAL_BLER", "BLER_PLOT", "RRU.PrbUsedDl", "RRU.PrbTotDl", "Normalised.PDSCH.MCS.0", "Normalised.PDSCH.MCS.1" , "Normalised.PDSCH.MCS.2" ,"Normalised.PDSCH.MCS.3" ,"Normalised.PDSCH.MCS.4" ,"Normalised.PDSCH.MCS.5" , "Normalised.PDSCH.MCS.6" ,"Normalised.PDSCH.MCS.7" ,"Normalised.PDSCH.MCS.8", "Normalised.PDSCH.MCS.9", "Normalised.PDSCH.MCS.10", "Normalised.PDSCH.MCS.11" , "Normalised.PDSCH.MCS.12" ,"Normalised.PDSCH.MCS.13" ,"Normalised.PDSCH.MCS.14" ,"Normalised.PDSCH.MCS.15" , "Normalised.PDSCH.MCS.16" ,"Normalised.PDSCH.MCS.17" ,"Normalised.PDSCH.MCS.18", "Normalised.PDSCH.MCS.19", "Normalised.PDSCH.MCS.20","Normalised.PDSCH.MCS.21" , "Normalised.PDSCH.MCS.22" ,"Normalised.PDSCH.MCS.23" ,"Normalised.PDSCH.MCS.24" ,"Normalised.PDSCH.MCS.25" , "Normalised.PDSCH.MCS.26" ,"Normalised.PDSCH.MCS.27" ,"Normalised.PDSCH.MCS.28", "Normalised.PDSCH.MCS.29",              "RRC.ConnEstabAtt.0", "RRC.ConnEstabAtt.1", "RRC.ConnEstabAtt.2", "RRC.ConnEstabAtt.3", "RRC.ConnEstabAtt.4", "RRC.ConnEstabAtt.5", "RRC.ConnEstabAtt.6", "RRC.ConnEstabAtt.7", "RRC.ConnEstabAtt.8", "RRC.ConnEstabAtt.9", "RRC.ConnEstabAtt.10", "RRC.ConnEstabAtt.11", "RRC.ConnEstabSucc.0", "RRC.ConnEstabSucc.1", "RRC.ConnEstabSucc.2", "RRC.ConnEstabSucc.3", "RRC.ConnEstabSucc.4", "RRC.ConnEstabSucc.5", "RRC.ConnEstabSucc.6", "RRC.ConnEstabSucc.7", "RRC.ConnEstabSucc.8", "RRC.ConnEstabSucc.9", "RRC.ConnEstabSucc.10", "RRC.ConnEstabSucc.11", "RRC.ConnMean", "RRC.ConnMax", "RRC.InactiveConnMean", "RRC.InactiveConnMax", "RRC.ReEstabAtt", "DRB.UEThpDl.avg", "DRB.UEThpUl.avg"]
             
 def validate_number(input_str, min_value, max_value, value_type=int):
     try:
@@ -62,6 +62,9 @@ def validate_number(input_str, min_value, max_value, value_type=int):
 
 def generate_random_kpivalue(min_value=100, max_value=150):
     return random.randint(min_value, max_value)
+
+def generate_random_kpivalue_double(min_value=100, max_value=150):
+    return round(random.uniform(min_value, max_value), 2)
 
 def insert_ves_kpi_based_on_interval(interval):
     print("Loop started. Type 'exit' and press Enter to stop.")
@@ -84,7 +87,10 @@ def insert_ves_kpi():
         line_protocol_batch = []
         
         for KPINAME in KPINAMES:
-            KPIValue = kpivalue(KPINAME)
+            if KPINAME == "DRB.UEThpDl.avg" or KPINAME == "DRB.UEThpUl.avg":
+                KPIValue = tpt(KPINAME)
+            else:
+                KPIValue = kpivalue(KPINAME)
             KPIValue_str = str(KPIValue)
             
             line_protocol = (
@@ -141,4 +147,11 @@ def kpivalue(KPINAME):
         KPIValue = 0
     return KPIValue
 
+def tpt(KPINAME):
+    KPIValue = 0 
+    if KPINAME == "DRB.UEThpDl.avg":
+        KPIValue = generate_random_kpivalue_double(0,400)
+    elif KPINAME == "DRB.UEThpUl.avg":
+        KPIValue = generate_random_kpivalue_double(0,10)
+    return KPIValue
 
